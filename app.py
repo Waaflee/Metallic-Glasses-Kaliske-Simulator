@@ -19,9 +19,13 @@ def get_root():
     deformation = request.args["deformation"]
     print(time)
     print(deformation)
-    a = Maxwell(time, deformation)
+    M = Maxwell(time, deformation)
+    # return jsonify({'hello': 'world!'})
+    s, d, t = M.run()
     return jsonify({
-        'Hello': 'World!',
+        'sigma': s.tolist(),
+        'deformation': d.tolist(),
+        'time': t.tolist(),
     })
 
 
