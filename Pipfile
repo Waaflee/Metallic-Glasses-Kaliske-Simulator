@@ -8,6 +8,7 @@ flask = "*"
 flask-cors = "*"
 numpy = "*"
 matplotlib = "*"
+requests = "*"
 
 [dev-packages]
 mypy = "*"

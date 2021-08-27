@@ -6,7 +6,6 @@ from flask_cors import CORS
 
 from models.maxwell.Maxwell import Maxwell
 
-
 app: Flask = Flask(__name__)
 # Enable CORS so we can use the API
 CORS(app)
@@ -19,9 +18,11 @@ def get_root():
     deformation = request.args["deformation"]
     print(time)
     print(deformation)
-    M = Maxwell(time, deformation)
-    # return jsonify({'hello': 'world!'})
-    s, d, t = M.run()
+    try:
+        M: Maxwell = Maxwell(time, deformation)
+        s, d, t = M.run()
+    except ValueError as e:
+        return e.__str__(), 400
     return jsonify({
         'sigma': s.tolist(),
         'deformation': d.tolist(),
