@@ -16,10 +16,12 @@ def get_root():
     # print(request)
     time = request.args["time"]
     deformation = request.args["deformation"]
+    model = request.args["model"]
     print(time)
     print(deformation)
+    print(model)
     try:
-        M: Maxwell = Maxwell(time, deformation)
+        M: Maxwell = Maxwell(time, deformation, model)
         s, d, t = M.run()
     except ValueError as e:
         return e.__str__(), 400

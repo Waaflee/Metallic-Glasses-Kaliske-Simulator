@@ -5,7 +5,7 @@ import numpy as np
 
 class Maxwell():
 
-    def __init__(self, time: str, deformation: str):
+    def __init__(self, time: str, deformation: str, model: int = 0):
         """Accepts the next simulation parameters:
             - time: str -> String in Octave notation '0:0.1:1'
             - time: str -> String in Octave notation '0:1'
@@ -26,13 +26,13 @@ class Maxwell():
 
         if (self.deformation_start > self.deformation_end):
             raise ValueError(
-                "Initial deformation can't less than dinal deformation.")
+                "Initial deformation can't less than final deformation.")
         if (self.time_start > self.time_end):
             raise ValueError(
                 "Initial time can't less than time time.")
         # read config file
         with open('models/maxwell/config.json', 'r') as config:
-            self.data = json.loads(config.read())
+            self.data = json.loads(config.read())[int(model)]
 
     def run(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         mu0: float = self.data["E"]
