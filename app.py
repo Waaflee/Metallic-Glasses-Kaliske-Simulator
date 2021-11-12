@@ -13,7 +13,6 @@ CORS(app)
 
 @app.route('/', methods=['GET'])
 def get_root():
-    # print(request)
     time = request.args["time"]
     deformation = request.args["deformation"]
     model = request.args["model"]
