@@ -16,9 +16,6 @@ def get_root():
     time = request.args["time"]
     deformation = request.args["deformation"]
     model = request.args["model"]
-    print(time)
-    print(deformation)
-    print(model)
     try:
         M: Maxwell = Maxwell(time, deformation, model)
         s, d, t = M.run()
