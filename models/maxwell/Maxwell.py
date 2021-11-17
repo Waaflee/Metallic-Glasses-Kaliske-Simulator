@@ -34,7 +34,11 @@ class Maxwell():
     def run(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         mu0: float = self.data["E"]
         dt = self.time_step
-        time: np.ndarray = np.arange(self.time_start, self.time_end + dt, dt)
+
+        time_length = int((self.time_end + dt - self.time_start) / dt)
+
+        time: np.ndarray = np.linspace(
+            self.time_start, self.time_end + dt, time_length + 1)
 
         deformation: np.ndarray = np.linspace(
             self.deformation_start, self.deformation_end, time.size)
@@ -46,19 +50,23 @@ class Maxwell():
 
         h: np.ndarray = np.zeros((deformation.size, len(self.data["branches"])),
                                  dtype=float, order='C')
-        h += 0.01
+        h += 0.1
 
         sigma: np.ndarray = np.empty((deformation.size))
+        deformation[0] = 0
         sigma0: np.ndarray = np.array(list(map(lambda x: mu0*x, deformation)))
         sigma[0:] = sigma0[0:]
 
         for i in range(1, time.size):
+
             for j in range(0, len(self.data["branches"])):
 
                 h[i, j] = np.e**(-dt / tau[j]) * h[i-1, j] + \
                     gamma[j] * (
                         ((1 - np.e**(-dt/tau[j])) / (dt / tau[j]))
                 )*(sigma0[i]-sigma0[i-1])
+
             sigma[i] = mu0 * deformation[i] + h[i, :].sum()
 
-        return (sigma[1:], deformation[1:], time[1:])
+        # return (sigma, deformation, time)
+        return (sigma[1:], deformation[1:], time[1:] - dt)
