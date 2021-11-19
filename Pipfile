@@ -10,10 +10,12 @@ numpy = "*"
 matplotlib = "*"
 requests = "*"
 types-requests = "*"
+pandas = "*"
 
 [dev-packages]
 mypy = "*"
 autopep8 = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.9"
