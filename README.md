@@ -21,3 +21,11 @@ init server:
 run plotter client:
 
 `python plotter.py`
+
+## Troubleshooting
+
+if the following error arises:
+
+`Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.`
+
+make sure you have [tkinter](https://docs.python.org/3/library/tkinter.html) installed
